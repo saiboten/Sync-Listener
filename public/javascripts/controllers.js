@@ -295,13 +295,12 @@ phonecatApp.controller('PlaylistController', function ($scope, $http, $interval,
     $scope.updatePlaylist();
     $scope.playingSong();
 
-    /*$interval(function() {
+    $interval(function() {
         $scope.secondsPlayed = $scope.secondsPlayed+1;
         if($scope.secondsPlayed > $scope.songDuration) {
             $scope.playingSong();
         }
     }, 1000);
-    */
 });
 
 /**
