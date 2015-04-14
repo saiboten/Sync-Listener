@@ -125,25 +125,11 @@ var update_playlist = function(playlist, callback) {
     playlist_repo.save_playlist(playlist, callback);
 }
 
-var get_total_number_of_votes_for_playlist = function(playlist_id, callback) {
-    playlist_repo.get_all_votes(playlist_id, callback);
-}
-
 var get_current_songs = function(playlist, req, pagenumber, callback) {
         async.parallel({
             songData: function(callbackFinished) {
                 get_songs_from_playlist(playlist, pagenumber, function(songs) {
                     callbackFinished(null,songs );
-                });
-            },
-           userVotes: function (callbackFinished) {
-                user_service.get_user_votes(req.params.playlist, req, function(votes) {
-                    callbackFinished(null,votes );
-                });
-            },
-           totalVotes: function (callback) {
-                get_total_number_of_votes_for_playlist(playlist, function(votes) {
-                    callback(null, votes);
                 });
             },
             playingSong: function (callback) {
@@ -171,7 +157,6 @@ module.exports.create_playlist_if_not_exist = create_playlist_if_not_exist;
 module.exports.get_next_song_from_playlist = get_next_song_from_playlist;
 module.exports.get_playlist = get_playlist;
 module.exports.get_playing_song_from_playlist = get_playing_song_from_playlist;
-module.exports.get_total_number_of_votes_for_playlist = get_total_number_of_votes_for_playlist;
 module.exports.get_current_songs = get_current_songs;
 module.exports.update_playlist = update_playlist;
 module.exports.add_user_to_playlist_if_not_exist = add_user_to_playlist_if_not_exist;

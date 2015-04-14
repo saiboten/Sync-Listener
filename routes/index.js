@@ -57,6 +57,21 @@ router.post('/boost/:playlist/:uri', function(req, res){
     });
 });
 
+router.post('/delete/:playlist/:uri', function(req, res){
+    track_service.delete_song(req.params.playlist.toLowerCase(), req.params.uri, req, function(success) {
+        if(success) {
+            return res.json({
+                success: "true"
+            });
+        }
+        else {
+            res.json({
+                alreadyvoted: "true"
+            });
+        }
+    });
+});
+
 router.get('/add/:playlist/:uri', function(req, res){
     track_service.add_track_to_playlist(req.params.playlist.toLowerCase(), req.params.uri, function(success) {
         res.json({

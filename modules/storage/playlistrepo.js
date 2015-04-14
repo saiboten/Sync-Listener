@@ -68,6 +68,9 @@ var add_user_to_playlist = function(playlist_id, user_id, callback) {
 }
 
 var save_playlist = function(playlistdata, callback) {
+
+   console.log("playlistrepo:: Saving playlist: ", playlistdata);
+
    db.playlists.update({playlist_id:playlistdata.playlist_id}, {playlist_id:playlistdata.playlist_id, data: playlistdata}, function(err, something_else) {
         console.log("playlistrepo:: playlist .. updated:", something_else);
        if(callback) {

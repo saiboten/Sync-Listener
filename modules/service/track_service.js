@@ -19,4 +19,23 @@ var add_track_to_playlist = function(playlist_id, track_id, callback) {
     });
 }
 
+var delete_song = function(playlist_id, uri, req, callback) {
+    console.log("track_service:: Deleting track, playlistid: ", playlist_id, ", uri for song to delete: " + uri);
+    playlist_service.get_playlist(playlist_id, function(playlist) {
+        playlist.songs.forEach(function(song) {
+            if(song.uri ==  uri) {
+                song_repo.delete_track_from_playlist(playlist_id, song, function() {
+                    console.log("track_service:: Success! Track was deleted? ");
+                    websocket.time_to_update();
+                });
+            }
+        });
+
+
+    });
+    callback(true);
+    return true;
+}
+
 module.exports.add_track_to_playlist = add_track_to_playlist;
+module.exports.delete_song = delete_song;

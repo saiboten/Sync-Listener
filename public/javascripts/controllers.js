@@ -140,6 +140,9 @@ phonecatApp.controller('PlaylistController', function ($scope, $http, $interval,
 	$scope.boostMethod = 'POST';
 	$scope.boostTrackUri = '/boost/';
 
+    $scope.deleteMethod = 'POST';
+    $scope.deleteTrackUri = '/delete/';
+
 	$scope.playlist = Spotocracy.playlist;
 	$scope.totalVotes = 0;
 	$scope.selectedSong = undefined;
@@ -258,6 +261,29 @@ phonecatApp.controller('PlaylistController', function ($scope, $http, $interval,
 		 $scope.delayedClearStatus();
 	}
 
+    $scope.deleteTrack = function(song) {
+        console.log("Lets delete this track: ", song);
+        $scope.selectedSong = song;
+        var fullUri = $scope.deleteTrackUri + $scope.playlist + "/" + song.uri;
+
+        $http({method: $scope.deleteMethod, url: fullUri, cache: false}).
+            success(function(data, status) {
+                if(status == 200) {
+                    $scope.result = "";
+                    $scope.updatePlaylist();
+                }
+                else {
+                    $scope.error = "Noe gikk galt :(!";
+                }
+
+            }).
+            error(function(data, status) {
+                $scope.error = "Noe gikk fryktelig galt:" + status;
+            });
+
+        $scope.delayedClearStatus();
+    }
+
     var sock = new SockJS('/socket');
     sock.onmessage = function(e) {
         console.log("Received message: ", e)
@@ -269,12 +295,13 @@ phonecatApp.controller('PlaylistController', function ($scope, $http, $interval,
     $scope.updatePlaylist();
     $scope.playingSong();
 
-    $interval(function() {
+    /*$interval(function() {
         $scope.secondsPlayed = $scope.secondsPlayed+1;
         if($scope.secondsPlayed > $scope.songDuration) {
             $scope.playingSong();
         }
     }, 1000);
+    */
 });
 
 /**
