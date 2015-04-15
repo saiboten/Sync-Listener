@@ -1,7 +1,7 @@
 <div>
 
 	<div class="panel panel-default">
-		<div class="panel-body">Du har <strong>{{userVotes}}</strong> stemmer. <span ng-show="username">Ditt brukernavn er <strong>{{username}}</strong></span></div>
+		<div class="panel-body"><span ng-show="username">Ditt brukernavn er <strong>{{username}}</strong></span></div>
 		<div class="panel-body" ng-show="currentArtist">Spiller nå: <strong>{{currentArtist}}</strong> - {{currentSong}} - {{Math.floor(secondsPlayed/60)}}:{{secondsPlayed%60}} - {{Math.floor(songDuration/60)}}:{{songDuration%60}}</div>
 	</div>
 
@@ -9,11 +9,21 @@
 
 	<div ng-show="result" class="alert alert-success">{{result}}</div>
 	<div ng-show="error" class="alert alert-danger">{{error}}</div>
-	<div ng-show="!result && !error" class="well">Stem på
+	<div ng-show="!result && !error" class="well">Stem opp
 			en låt ved å klikke på den.
     </div>
 
-    <div class="panel-body"><button ng-click="resume();">Play</button><button ng-click="pause();">Pause</button>
+
+
+    <div class="panel-body">
+
+        <button ng-click="pause();" type="button" class="btn btn-default" aria-label="Left Align">
+            <span class="glyphicon glyphicon-pause" aria-hidden="true"></span>
+        </button>
+
+        <button ng-click="resume();" type="button" class="btn btn-default" aria-label="Left Align">
+            <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
+        </button>
     </div>
 
 	<div class="list-group">
@@ -22,16 +32,27 @@
 			<div class="panel-body">Du har ikke lagt til noen låter i spillelisten enda. Klikk søk på toppen for å søke opp låter du vil legge til.</div>
 			
 		</div>
+
+        <pager total-items="totalItems" ng-change="setPage(currentPage)" ng-model="currentPage"></pager>
 	
 		<div href='#/playlist' class="list-group-item" ng-class="{'list-group-item-success': song.uri == selectedSong.uri}" ng-repeat="song in songs">
 	
 			<div class="row">
 				<div class="col-md-4"><strong>{{song.artist}}</strong> - {{song.name}}</div>
-				
+
+
+
+
 				<div class="col-md-6"><progressbar value="(song.score/totalVotes) * 100"><span style="color:black; white-space:nowrap;"></span></progressbar></div>
-				<div class="col-md-1"><span class="badge">{{song.score}}</span> </div>
-                <button class="col-md-1" ng-click="boostTrack(song)">PLUSS</button>
-                <button class="col-md-1" ng-click="deleteTrack(song)">DELETE</button>
+				<div class="col-md-1" ><span class="badge">{{song.score}}</span> </div>
+
+                <button ng-click="boostTrack(song)" type="button" class="btn btn-default" aria-label="Left Align">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                </button>
+
+                <button ng-click="deleteTrack(song)" type="button" class="btn btn-default" aria-label="Left Align">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                </button>
 			</div>
 		</div>
         <pager total-items="totalItems" ng-change="setPage(currentPage)" ng-model="currentPage"></pager>
