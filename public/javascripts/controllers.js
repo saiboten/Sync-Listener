@@ -166,7 +166,7 @@ phonecatApp.controller('PlaylistController', function ($scope, $http, $interval,
 	}
 	
 	$scope.updatePlaylist = function() {
-		console.log("Lets get song!");
+		console.log("Lets update the playlist!");
 		 $http({method: $scope.method, url: $scope.getSongsUri + $scope.playlist + "/" + $scope.currentPage, cache: false}).
 		    success(function(data, status) {
 		    	console.log("data", data);

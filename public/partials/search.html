@@ -19,15 +19,13 @@
 			</div>
 	</div>
 	</form>
-
-
- 
+    
 	<div ng-show="status" class="alert alert-success">{{status}}</div>
 	<div ng-show="error" class="alert alert-danger">{{error}}</div>
 
 	<div class="list-group">
 		<a href='#search' ng-click="addTrack(track.href)" class="list-group-item"
-			ng-repeat="track in tracks | limitTo:10">
-			{{track.artists[0].name}} - {{track.name}} <span class="pull-right glyphicon glyphicon-plus"></span></a>
+			ng-repeat="track in tracks | limitTo:15">
+			{{track.artists[0].name}} - {{track.name}} ({{track.album.name}}) <span class="pull-right glyphicon glyphicon-plus"></span></a>
 	</div>
 </div>

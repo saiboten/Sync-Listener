@@ -58,7 +58,11 @@ router.post('/boost/:playlist/:uri', function(req, res){
 });
 
 router.post('/delete/:playlist/:uri', function(req, res){
-    track_service.delete_song(req.params.playlist.toLowerCase(), req.params.uri, req, function(success) {
+    return res.json({
+        success: "true"
+    });
+
+    /*track_service.delete_song(req.params.playlist.toLowerCase(), req.params.uri, req, function(success) {
         if(success) {
             return res.json({
                 success: "true"
@@ -69,7 +73,7 @@ router.post('/delete/:playlist/:uri', function(req, res){
                 alreadyvoted: "true"
             });
         }
-    });
+    });*/
 });
 
 router.get('/add/:playlist/:uri', function(req, res){
