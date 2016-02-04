@@ -28,7 +28,7 @@ function($routeProvider) {
 phonecatApp.controller('SearchController', function ($scope, $http, $timeout, $modal) {
 	
 	$scope.method = 'GET';
-	$scope.theUrl = 'http://ws.spotify.com/search/1/track.json?q=';
+	$scope.theUrl = 'https://api.spotify.com/v1/search?type=track&q=';
 	$scope.addTrackUrl = '/add/'
 	$scope.playlist = Spotocracy.playlist;
     $scope.track = undefined;
@@ -85,6 +85,7 @@ phonecatApp.controller('SearchController', function ($scope, $http, $timeout, $m
           $scope.status = "Søker ...";
 		  $http({method: $scope.method, url: $scope.theUrl + $scope.searchKeyword, cache: false}).
 		    success(function(data, status) {
+              console.log(data.tracks);
 		      $scope.tracks = data.tracks;
 		      $scope.error = undefined;
               $scope.status = "";
