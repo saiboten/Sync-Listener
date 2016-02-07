@@ -9,12 +9,12 @@ var userid_service = require("./userid_service");
 var websocket = require("../websocket/socket");
 var async = require("async");
 
-var create_playlist_if_not_exist = function(playlist_id, req, callback) {
+var create_playlist_if_not_exist = function(playlist_id, spotocracy, req, callback) {
     console.log("playlist_service:: Creating new playlist with playlist id: ", playlist_id);
     playlist_repo.get_playlist(playlist_id, function(playlist) {
         if(!playlist) {
             console.log("playlist_service:: Playlist did not exist, creating playlist");
-            playlist_repo.add_playlist(playlist_id, function() {
+            playlist_repo.add_playlist(playlist_id, spotocracy, function() {
                 callback();
             });
         }

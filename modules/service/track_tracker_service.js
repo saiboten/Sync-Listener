@@ -8,6 +8,9 @@ var start_new_track = function(playlistid) {
 }
 
 var get_currently_playing_info = function(playlistid, callback) {
+
+    console.log("Getting currently playing song, playlist: ", playlistid);
+
     song_to_playlist.get_currently_playing_song(playlistid, function(song) {
         callback(song);
     });

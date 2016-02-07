@@ -31,6 +31,12 @@ var resume_playlist = function(playlist_id) {
 }
 
 var get_currently_playing_song = function(playlist_id, callback) {
+    console.log("Getting currently playing song: ", database);
+    if(database.length == 0) {
+        console.log("The list is empty? No song play..");
+        callback();
+        return;
+    }
     callback(database.filter(function(playlist) {
         return playlist.playlistid === playlist_id;
     }).reduce(function() {}));

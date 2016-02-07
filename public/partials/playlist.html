@@ -2,7 +2,7 @@
 
 	<div class="panel panel-default">
 		<div class="panel-body"><span ng-show="username">Ditt brukernavn er <strong>{{username}}</strong></span></div>
-		<div class="panel-body" ng-show="currentArtist">Spiller nå: <strong>{{currentArtist}}</strong> - {{currentSong}} - {{Math.floor(secondsPlayed/60)}}:{{secondsPlayed%60}} - {{Math.floor(songDuration/60)}}:{{songDuration%60}}</div>
+		<div class="panel-body" ng-show="currentArtist">Spiller nå: <strong>{{currentArtist}}</strong> - {{currentSong}} - {{secondsPlayedString}} - {{songDurationString}}</div>
 	</div>
 
 	<h2>Spillelisten</h2>

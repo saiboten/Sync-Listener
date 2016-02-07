@@ -104,6 +104,8 @@ phonecatApp.controller('SearchController', function ($scope, $http, $timeout, $m
 
     $scope.open = function () {
 
+        console.log($scope.tracks);
+
         var modalInstance = $modal.open({
             templateUrl: '../html/test.html',
             controller: 'ModalInstanceCtrl',
@@ -111,9 +113,11 @@ phonecatApp.controller('SearchController', function ($scope, $http, $timeout, $m
             resolve: {
                 track: function () {
                     var songFound = undefined;
-                    $scope.tracks.forEach(function(song) {
 
-                        if($scope.track == song.href) {
+                    console.log($scope.track);
+
+                    $scope.tracks.items.forEach(function(song) {
+                        if($scope.track == song.uri) {
                             console.log("GOT IT!: ", song);
                             songFound = song;
                         }
@@ -129,6 +133,12 @@ phonecatApp.controller('SearchController', function ($scope, $http, $timeout, $m
  * Playlist Controller!
  */
 phonecatApp.controller('PlaylistController', function ($scope, $http, $interval, $timeout) {
+
+    function pad(n, width, z) {
+        z = z || '0';
+        n = n + '';
+        return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+    }
 
     $scope.Math = window.Math;
 
@@ -149,7 +159,9 @@ phonecatApp.controller('PlaylistController', function ($scope, $http, $interval,
 	$scope.selectedSong = undefined;
     $scope.username = undefined;
     $scope.songDuration = 0;
+    $scope.songDurationString = "0";
     $scope.secondsPlayed = 0;
+    $scope.secondsPlayedString = "0";
 
     $scope.currentPage = 1;
     $scope.totalItems = 0;
@@ -190,7 +202,7 @@ phonecatApp.controller('PlaylistController', function ($scope, $http, $interval,
 		    	$scope.error = "Noe gikk fryktelig galt:" + status;
 		    	$scope.delayedClearStatus();
 		  });	
-	}
+	};
 
 
     $scope.playingSong = function() {
@@ -198,8 +210,12 @@ phonecatApp.controller('PlaylistController', function ($scope, $http, $interval,
         $http({method: $scope.method, url: $scope.playingSongUri + $scope.playlist, cache: false}).
             success(function(data, status) {
                 console.log("data", data);
-                $scope.songDuration = data.song.songDurationMs;
-                $scope.secondsPlayed = data.song.secondsPlayed;
+                if(data.success) {
+                    $scope.songDuration = data.song.song.songDurationMs;
+                    $scope.songDurationString = pad((Math.floor($scope.songDuration/60)),2) + ":" + pad(($scope.songDuration%60),2)
+                    $scope.secondsPlayed = data.song.song.secondsPlayed;
+                    $scope.secondsPlayedString = pad((Math.floor($scope.secondsPlayed/60)),2) + ":" + pad(($scope.secondsPlayed%60),2);
+                }
             }).
             error(function(data, status) {
 
@@ -298,6 +314,8 @@ phonecatApp.controller('PlaylistController', function ($scope, $http, $interval,
 
     $interval(function() {
         $scope.secondsPlayed = $scope.secondsPlayed+1;
+        $scope.secondsPlayedString = pad(Math.floor(($scope.secondsPlayed/60)),2) + ":" + pad((Math.floor($scope.secondsPlayed%60)),2);
+
         if($scope.secondsPlayed > $scope.songDuration) {
             $scope.playingSong();
         }

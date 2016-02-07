@@ -32,11 +32,14 @@ var get_all_playlists = function(callback) {
     });
 }
 
-var add_playlist = function(playlist_id, callback) {
+var add_playlist = function(playlist_id, spotocracy, callback) {
     get_playlist(playlist_id, function(existing_playlist) {
         if(!existing_playlist) {
             console.log("playlistrepo:: Adding new playlist: ", playlist_id);
-            db.playlists.save({playlist_id: playlist_id, data: new playlist(playlist_id)}, function() {
+
+            console.log("playlistrepo:: Is this a spotocracy playlist? ", spotocracy);
+
+            db.playlists.save({playlist_id: playlist_id, data: new playlist(playlist_id, spotocracy)}, function() {
                 callback();
             });
         }
