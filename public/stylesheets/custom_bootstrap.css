@@ -1,0 +1,58 @@
+body {
+    background: #002E37;
+    color: #B6BCBD;
+}
+
+.jumbotron {
+    background: #002E37;
+}
+
+.panel {
+    background: #094D5A;
+}
+
+.alert {
+    background: #094D5A;
+}
+
+.well {
+    background: #094D5A;
+}
+
+.list-group-item {
+    background: #094D5A;
+}
+
+.active {
+    background: #094D5A;
+}
+
+.nav {
+    color: #B6BCBD;
+}
+
+.nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus {
+    background: #094D5A;
+    color: #B6BCBD;
+}
+
+a {
+    color: #B6BCBD;
+}
+
+.list-group-item-success {
+    color: #2D6873;
+}
+
+.pager .disabled>a, .pager .disabled>a:hover, .pager .disabled>a:focus, .pager .disabled>span {
+    background: #002E37;
+}
+
+.btn-default {
+    background: #094D5A;
+    color: #B6BCBD;
+}
+
+a.list-group-item {
+    color: #B6BCBD;
+}

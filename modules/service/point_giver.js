@@ -20,7 +20,7 @@ var give_votes_to_everything = function() {
 var init = function() {
     console.log("Initiated point giving");
     //setTimeout(give_votes_to_everything, 5000);
-    setInterval(give_votes_to_everything, 300000);
+    //setInterval(give_votes_to_everything, 300000);
     //setInterval(give_votes_to_everything, 5000);
 }
 

@@ -1,18 +1,19 @@
 <div>
 
-	<div class="panel panel-default">
-		<div class="panel-body"><span ng-show="username">Ditt brukernavn er <strong>{{username}}</strong></span></div>
-		<div class="panel-body" ng-show="currentArtist">Spiller nå: <strong>{{currentArtist}}</strong> - {{currentSong}} - {{secondsPlayedString}} - {{songDurationString}}</div>
-	</div>
-
-	<h2>Spillelisten</h2>
-
-	<div ng-show="result" class="alert alert-success">{{result}}</div>
-	<div ng-show="error" class="alert alert-danger">{{error}}</div>
-	<div ng-show="!result && !error" class="well">Stem opp
-			en låt ved å klikke på den.
+    <div class="panel panel-default">
+        <div class="panel-body"><span ng-show="username">Ditt brukernavn er <strong>{{username}}</strong></span></div>
+        <div class="panel-body" ng-show="currentArtist">Spiller nå: <strong>{{currentArtist}}</strong> - {{currentSong}}
+            - {{secondsPlayedString}} - {{songDurationString}}
+        </div>
     </div>
 
+    <h2>Spillelisten</h2>
+
+    <div ng-show="result" class="alert alert-success">{{result}}</div>
+    <div ng-show="error" class="alert alert-danger">{{error}}</div>
+    <div ng-show="!result && !error" class="well">Stem opp
+        en låt ved å klikke på den.
+    </div>
 
 
     <div class="panel-body">
@@ -26,25 +27,29 @@
         </button>
     </div>
 
-	<div class="list-group">
-	
-		<div ng-hide="songs" class="panel panel-default">
-			<div class="panel-body">Du har ikke lagt til noen låter i spillelisten enda. Klikk søk på toppen for å søke opp låter du vil legge til.</div>
-			
-		</div>
+    <div class="list-group">
+
+        <div ng-hide="songs" class="panel panel-default">
+            <div class="panel-body">Du har ikke lagt til noen låter i spillelisten enda. Klikk søk på toppen for å søke
+                opp låter du vil legge til.
+            </div>
+
+        </div>
 
         <pager total-items="totalItems" ng-change="setPage(currentPage)" ng-model="currentPage"></pager>
-	
-		<div href='#/playlist' class="list-group-item" ng-class="{'list-group-item-success': song.uri == selectedSong.uri}" ng-repeat="song in songs">
-	
-			<div class="row">
-				<div class="col-md-4"><strong>{{song.artist}}</strong> - {{song.name}}</div>
+
+        <div href='#/playlist' class="list-group-item"
+             ng-class="{'list-group-item-success': song.uri == selectedSong.uri}" ng-repeat="song in songs">
+
+            <div class="row">
+                <div class="col-md-4"><strong>{{song.artist}}</strong> - {{song.name}}</div>
 
 
-
-
-				<div class="col-md-6"><progressbar value="(song.score/totalVotes) * 100"><span style="color:black; white-space:nowrap;"></span></progressbar></div>
-				<div class="col-md-1" ><span class="badge">{{song.score}}</span> </div>
+                <div class="col-md-6">
+                    <progressbar value="(song.score/totalVotes) * 100"><span
+                            style="color:black; white-space:nowrap;"></span></progressbar>
+                </div>
+                <div class="col-md-1"><span class="badge">{{song.score}}</span></div>
 
                 <button ng-click="boostTrack(song)" type="button" class="btn btn-default" aria-label="Left Align">
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
@@ -53,21 +58,9 @@
                 <button ng-click="deleteTrack(song)" type="button" class="btn btn-default" aria-label="Left Align">
                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                 </button>
-			</div>
-		</div>
+            </div>
+        </div>
         <pager total-items="totalItems" ng-change="setPage(currentPage)" ng-model="currentPage"></pager>
-	</div>
+    </div>
 
 </div>
-
-<div ng-controller="RootController">
-				
-		<form ng-submit="clicked()" role="form">
-		  <div class="form-group">
-		    <input type="text" class="form-control ng-pristine ng-valid" ng-model="url" autocomplete="off" typeahead="playlist for playlist in getPlaylist($viewValue) | filter:$viewValue | limitTo:8" placeholder="Bytt playlist">
-		  </div>
-		
-		  <button type="submit" class="btn btn-default">Bytt!</button>
-		</form>
-	
-	</div>
