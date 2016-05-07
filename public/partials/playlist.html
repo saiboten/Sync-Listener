@@ -15,18 +15,6 @@
         en låt ved å klikke på den.
     </div>
 
-
-    <div class="panel-body">
-
-        <button ng-click="pause();" type="button" class="btn btn-default" aria-label="Left Align">
-            <span class="glyphicon glyphicon-pause" aria-hidden="true"></span>
-        </button>
-
-        <button ng-click="resume();" type="button" class="btn btn-default" aria-label="Left Align">
-            <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
-        </button>
-    </div>
-
     <div class="list-group">
 
         <div ng-hide="songs" class="panel panel-default">
@@ -42,20 +30,21 @@
              ng-class="{'list-group-item-success': song.uri == selectedSong.uri}" ng-repeat="song in songs">
 
             <div class="row">
-                <div class="col-md-4"><strong>{{song.artist}}</strong> - {{song.name}}</div>
+
+                <div class="col-md-4"><strong>{{song.artist}}</strong> - {{song.name}} ({{song.album}}) <span class="badge pull-right">{{song.score}}</span></div>
+                <div class="col-md-1"><span class="minitext">Lagt til av: {{song.addedby}}</span></div>
 
 
                 <div class="col-md-6">
                     <progressbar value="(song.score/totalVotes) * 100"><span
                             style="color:black; white-space:nowrap;"></span></progressbar>
                 </div>
-                <div class="col-md-1"><span class="badge">{{song.score}}</span></div>
 
                 <button ng-click="boostTrack(song)" type="button" class="btn btn-default" aria-label="Left Align">
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 </button>
 
-                <button ng-click="deleteTrack(song)" type="button" class="btn btn-default" aria-label="Left Align">
+                <button ng-click="deleteTrack(song)" type="button" class="btn btn-default pull-right" aria-label="Left Align">
                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                 </button>
             </div>

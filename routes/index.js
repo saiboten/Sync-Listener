@@ -91,7 +91,7 @@ router.post('/delete/:playlist/:uri', function(req, res){
 });
 
 router.get('/add/:playlist/:uri', function(req, res){
-    track_service.add_track_to_playlist(req.params.playlist.toLowerCase(), req.params.uri, function(success) {
+    track_service.add_track_to_playlist(req.params.playlist.toLowerCase(), req.params.uri, userid_service.get_user_id(req), function(success) {
         res.json({
             success: success
         });

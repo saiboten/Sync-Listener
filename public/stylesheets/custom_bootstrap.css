@@ -56,3 +56,7 @@ a {
 a.list-group-item {
     color: #B6BCBD;
 }
+
+.minitext {
+    font-size: 10px;
+}
