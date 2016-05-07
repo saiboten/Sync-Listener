@@ -429,11 +429,12 @@ phonecatApp.controller('UsernameController', function ($scope, $http) {
     $scope.usernameEntered = function (username) {
         console.log("Scope username: ", username);
 
-        var fullUrl = $scope.usernameUrl + username ;
+        var fullUrl = "../p/" + $scope.usernameUrl + username ;
 
         $http({method: $scope.method, url: fullUrl , cache: false}).
             success(function(data) {
                 if(data.success) {
+                    console.log("Window location reload?");
                     window.location.reload();
                 }
                 else if(data.error == "userid_taken"){

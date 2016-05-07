@@ -37,6 +37,24 @@ router.get('/p/:playlist', function(req, res) {
         }
 });
 
+router.get('/pa/:playlist', function(req, res) {
+    console.log("index.js:: /pa/playlist");
+
+    var exists = userid_service.user_exists(req);
+    if(exists) {
+        user_service.create_user_if_not_exist(req, function () {
+            playlist_service.create_playlist_if_not_exist(req.params.playlist.toLowerCase(), req.query.spotocracy, req, function() {
+                playlist_service.add_user_to_playlist_if_not_exist(req.params.playlist.toLowerCase(), req);
+                user_service.add_playlist_to_user_if_not_exist(req.params.playlist.toLowerCase(), req);
+                res.render('playlistnomenu', { playlist: req.params.playlist.toLowerCase()});
+            });
+        });
+    }
+    else {
+        res.render('usernameselect');
+    }
+});
+
 router.post('/p/username/:username', function(req, res) {
     console.log("index.js:: /p/playlist");
     res.json(userid_service.set_user_id(req));
@@ -82,6 +100,7 @@ router.get('/add/:playlist/:uri', function(req, res){
 });
 
 router.get('/get_song/:playlist', function(req, res){
+    track_tracker_service.resume_playlist(req.params.playlist.toLowerCase());
     track_tracker_service.
         get_currently_playing_info(req.params.playlist.toLowerCase(), function(next_song)  {
             if(next_song) {
